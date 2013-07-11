@@ -1,5 +1,7 @@
-deploy_to  = "/var/www/admintools.loc/rorteam.loc"
-rails_root = "#{deploy_to}/current"
+#deploy_to  = "/var/www/admintools.loc/rorteam.loc"
+#rails_root = "#{deploy_to}/current"
+deploy_to  = "/home/mas/ruby/server"
+rails_root = "#{deploy_to}/ror_team"
 pid_file   = "#{deploy_to}/shared/pids/unicorn.pid"
 socket_file= "#{deploy_to}/shared/unicorn.sock"
 log_file   = "#{rails_root}/log/unicorn.log"
@@ -40,4 +42,4 @@ after_fork do |server, worker|
   # После того как рабочий процесс создан, он устанавливает соединение с базой.
   defined?(ActiveRecord::Base) and
       ActiveRecord::Base.establish_connection
-
+end
