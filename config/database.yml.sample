@@ -1,0 +1,17 @@
+-common: &common
+-  adapter: PostgreSQL
+-  encoding: unicode
+-  pool: 5
+-  host: localhost
+-  port: 5432
+-  username: ruby
+-  password: 123456
+-development:
+-  <<: *common
+-  database: ror_team_development
+-test:
+-  <<: *common
+-  database: ror_team_test
+-production:
+-  <<: *common
+-  database: ror_team_production

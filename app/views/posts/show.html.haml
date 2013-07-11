@@ -1,0 +1,70 @@
+.row
+  .span8.posts.main_cont
+    .post
+      .post_top
+        .post_img
+          %img{:src => '/icon-info.png'} #FIXME
+        .post-title
+          = @post.title
+        .post_date
+          = @post.created_at
+          %span
+            = link_to "#{@post.comments_count} #{t('.comments')}", post_path(@post)
+      .post-content
+        = @post.description.html_safe
+      .categories
+        = t '.category'
+        = @post.categories.collect{|cat| link_to strip_links(cat.name), posts_path(:category_name=>cat.name) }.join(', ').html_safe
+      .tags
+        = t '.tags'
+        - @post.tag_counts_on(:tags).each do |tag|
+          = link_to tag.name, posts_path(:tag_name => tag.name), :class => 'btn'
+    %comments
+      - @comments.each do |comment|
+        %b
+          - if comment.commentable.respond_to? :image
+            = image_tag comment.commentable.image, :class=>'img-rounded'
+          - if comment.commentable.respond_to? :nickname
+            = comment.commentable.nickname
+        %small
+          = comment.commentable.email
+          %br
+            %b
+              = comment.description
+    %h2
+      = t '.new_comment'
+      = form_for [@post, Comment.new], :html => {:class => 'form-inline'} do |f|
+        .input-append
+          = f.text_area :description, style: 'height:39px; width:650px', :placeholder => t('.write_comment')
+          = f.submit t('.add_comment'), class: 'btn', style: 'height:50px;'
+
+          = link_to '/auth/twitter' do
+            = image_tag 'authbuttons/twitter_32.png', :size => '32x32', :alt => 'Twitter'
+          = link_to '/auth/facebook' do
+            = image_tag 'authbuttons/facebook_32.png', :size => '32x32', :alt => 'Facebook'
+    .span4
+      .recent_posts
+        %h3
+          = t ('.most_recent_post')
+        %ul.unstyled
+          - @recent_posts.each do |post|
+            %li
+              = link_to post.title, post_path(post)
+        %h5
+          = t ('.get_more')
+        .btn.large
+          = link_to t('.rss_feed'), '#'
+    .span3
+      .popular_posts
+        %h3
+          = t '.most_popular'
+        %ul.unstyled
+          - @popular_posts.each do |post|
+            %li
+              = link_to post.title, post_path(post)
+        %h5
+          = t '.ready_help'
+        .btn.large
+          = link_to t('.contact_us'), '#'
+  .span4.sidebar
+    = render :partial => 'sidebar'

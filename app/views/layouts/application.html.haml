@@ -1,0 +1,75 @@
+!!!
+%html
+  %head
+    %title RorTeam
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = include_gon(:namespace => 'RorTeam', :camel_case => true)
+    = csrf_meta_tags
+  %body
+    .container
+      %header
+        .row
+          .span2
+            .logo
+              = link_to(t('.ror_team'), root_path)
+          .span6
+            - if current_user
+              = "Welcome, #{current_user.nickname} "
+              = link_to 'Logout', auth_destroy_path
+          %nav
+            %ul.inline
+              %li
+                = link_to(t('.company'), company_index_path)
+              %li
+                = link_to(t('.work'), work_index_path)
+              %li
+                = link_to(t('.team'), team_index_path)
+              %li
+                = link_to(t('.careers'), jobs_path)
+              %li
+                = link_to(t('.contact'), contact_index_path)
+              %li
+                = link_to(t('.blog'), posts_path)
+          .chat.span1
+            .btn
+              = link_to t('.live_chat')
+      #content
+        - if flash[:notice]
+          %p.notice
+            = flash.now[:notice].html_safe
+        - if flash[:error]
+          %p.error
+            = flash.now[:error].html_safe
+        = yield
+      %footer#footer
+        .contact-us.row
+          .span4
+            %p.lead
+              = t '.use_to_contact'
+        .row
+          .span6
+            %small
+              = t '.media_soc'
+          .span6.text-right
+            %small
+              = t '.mail_scype'
+        .row.soc_net
+          .span4
+            %p.lead
+              %i.icon-th-large
+              = link_to(t('.follow_twitter'), 'http://twitter.com')
+          .span4
+            %p.lead
+              %i.icon-th
+              = link_to(t('.follow_facebook'), 'http://facebook.com')
+          .span4
+            %p.lead
+              %i.icon-envelope
+              = link_to(t('.contact_email'), '#')
+              %br
+                = link_to(t('.email'), 'mailto:ror_team@gmail.com')
+        .row.text-center
+          © 2012-2013 RoR-Team
+        .row.bottom
+          .span12

@@ -1,0 +1,39 @@
+.row.our-skills
+  .span12
+    %h1
+      = t '.our_skills'
+    - @technology_categories.each do |tech_category|
+      .span2
+        %h4
+          = tech_category.name
+        - tech_category.technologies.each do |technology|
+          .span0
+            - unless technology.upload_files.first.nil?
+              = image_tag technology.upload_files.first.filename.to_s, title: technology.name, alt: technology.name, width: 50, height: 50
+            - else
+              = image_tag '/icon-info.png', width: 50, height: 50, alt: technology.name, title: technology.name
+.row.experience
+  .span4
+    = image_tag('/icon-info.png')
+    %span
+      = t '.development_system'
+  .span4
+    = image_tag('/icon-info.png')
+    %span
+      = t '.command_development'
+  .span4
+    = image_tag('/icon-info.png')
+    %span
+      = t '.feedback_odesk'
+.row.services
+  .span12
+    %h3
+      = t '.service_prode'
+  - @services.each do |service|
+    .span3
+      %h4
+        = service.name
+.row
+  = render :partial => 'shared/post_jobs'
+
+
