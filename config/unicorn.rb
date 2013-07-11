@@ -1,5 +1,5 @@
-deploy_to  = "/home/mas/ruby/"
-rails_root = "#{deploy_to}/ror_team/"
+deploy_to  = "/var/www/admintools.loc/rorteam.loc"
+rails_root = "#{deploy_to}/current"
 pid_file   = "#{deploy_to}/shared/pids/unicorn.pid"
 socket_file= "#{deploy_to}/shared/unicorn.sock"
 log_file   = "#{rails_root}/log/unicorn.log"
